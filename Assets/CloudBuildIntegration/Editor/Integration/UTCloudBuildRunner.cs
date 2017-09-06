@@ -9,16 +9,6 @@ namespace AncientLightStudios.UTomate.CloudBuild
     {
         public static void OnPreExport()
         {
-            UnityWebRequest www = UnityWebRequest.Get("http://localhost");
-            yield return www.Send();
-
-            if(www.isError) {
-                Debug.Log(www.error);
-            }
-            else {
-                Debug.Log(www.downloadHandler.text);
-            }
-
             Debug.Log("Testing 1234");
         }
 
