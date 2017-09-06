@@ -3,20 +3,23 @@ namespace AncientLightStudios.UTomate.CloudBuild
     using System;
     using System.Collections;
     using UnityEngine;
-
+    using UnityEngine.Networking;
+ 
     public class UTCloudBuildRunner
     {
         public static void OnPreExport()
         {
-            var plan = UTUnityCloudBuildConfiguration.UnityCloudBuildConfiguration.runOnPreExport;
-            if (plan != null)
-            {
-                PlanRunHack(plan);
+            UnityWebRequest www = UnityWebRequest.Get("http://localhost");
+            yield return www.Send();
+
+            if(www.isError) {
+                Debug.Log(www.error);
             }
-            else
-            {
-                Debug.Log("No plan for pre-export. Skipping.");
+            else {
+                Debug.Log(www.downloadHandler.text);
             }
+
+            Debug.Log("Testing 1234");
         }
 
         public static void OnPostExport(string currentlyIgnored)
